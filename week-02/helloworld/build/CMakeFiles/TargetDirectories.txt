@@ -1,0 +1,7 @@
+/Users/qi7876/projects/EPIII-2025-Spring/helloworld/build/CMakeFiles/es-helloworld.dir
+/Users/qi7876/projects/EPIII-2025-Spring/helloworld/build/CMakeFiles/edit_cache.dir
+/Users/qi7876/projects/EPIII-2025-Spring/helloworld/build/CMakeFiles/rebuild_cache.dir
+/Users/qi7876/projects/EPIII-2025-Spring/helloworld/build/CMakeFiles/list_install_components.dir
+/Users/qi7876/projects/EPIII-2025-Spring/helloworld/build/CMakeFiles/install.dir
+/Users/qi7876/projects/EPIII-2025-Spring/helloworld/build/CMakeFiles/install/local.dir
+/Users/qi7876/projects/EPIII-2025-Spring/helloworld/build/CMakeFiles/install/strip.dir
