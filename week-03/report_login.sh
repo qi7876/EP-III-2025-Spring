@@ -8,6 +8,9 @@ SWAKS_MAIL_PORT="25"  # SMTP port.
 SWAKS_MAIL_USER="2023010905015@std.uestc.edu.cn"  # User.
 SWAKS_MAIL_PASSWORD="tYjxiq-qimrat-8biqsu"  # Password.
 
+# Cache variable to store the last detected log entry
+LAST_LOG_ENTRY=""
+
 # Function to find the appropriate log file.
 find_auth_log() {
   # Common log file locations across different distributions.
@@ -28,7 +31,6 @@ find_auth_log() {
   done
   
   # If we couldn't find a log file, try using journalctl for systemd-based systems.
-  # This method has not been tested.
   if command -v journalctl &> /dev/null; then
     echo "journalctl"
     return 0
@@ -99,12 +101,12 @@ monitor_login_events() {
   
   if [ "$log_source" = "journalctl" ]; then
     # Use journalctl for systemd-based systems
-    journalctl -f -u "sshd.service" -o cat | while read line; do
+    journalctl -n 0 -f -u "sshd.service" -o cat | while read line; do
       process_log_line "$line"
     done
   else
     # Use traditional log files
-    tail -f "$log_source" | while read line; do
+    tail -n 0 -f "$log_source" | while read line; do
       process_log_line "$line"
     done
   fi
@@ -149,11 +151,24 @@ process_log_line() {
 
   # Send notifications if user login is detected.
   if [ ! -z "$user" ] && [ ! -z "$status" ]; then
-    echo "[$(date '+%Y-%m-%d %H:%M:%S')] Detected that $user tried to login in. | Status: $status | Method: $auth_method | From: ${ip:-local}"
+    # Create a unique identifier for this log event
+    current_log_entry="${user}:${status}:${auth_method}:${ip:-local}:${original_log}"
     
-    send_swaks_mail "$user" "$status" "${ip:-local}" "$auth_method" "$original_log"
-    
-    echo "========================================================================================================"
+    # Check if this is a duplicate of the last log entry
+    if [ "$current_log_entry" = "$LAST_LOG_ENTRY" ]; then
+      echo "[$(date '+%Y-%m-%d %H:%M:%S')] Skipping duplicate log entry"
+      echo "========================================================================================================"
+    else
+      echo "[$(date '+%Y-%m-%d %H:%M:%S')] Detected that $user tried to login in. Status: $status. Method: $auth_method. From: ${ip:-local}"
+      
+      # Send notification and email
+      send_swaks_mail "$user" "$status" "${ip:-local}" "$auth_method" "$original_log"
+      
+      # Update the cache with this log entry
+      LAST_LOG_ENTRY="$current_log_entry"
+      
+      echo "========================================================================================================"
+    fi
   fi
 }
 
