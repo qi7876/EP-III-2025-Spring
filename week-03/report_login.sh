@@ -11,35 +11,6 @@ SWAKS_MAIL_PASSWORD="tYjxiq-qimrat-8biqsu"  # Password.
 # Cache variable to store the last detected log entry
 LAST_LOG_ENTRY=""
 
-# Function to find the appropriate log file.
-find_auth_log() {
-  # Common log file locations across different distributions.
-  local log_files=(
-    "/var/log/auth.log"     # Debian/Ubuntu
-    "/var/log/secure"       # RHEL/CentOS/Fedora
-    "/var/log/messages"     # Some older systems
-    "/var/adm/auth.log"     # Some Unix variants
-    "/var/adm/messages"     # Solaris
-    "/var/log/syslog"       # Alternative for some systems
-  )
-  
-  for log_file in "${log_files[@]}"; do
-    if [ -f "$log_file" ] && [ -r "$log_file" ]; then
-      echo "$log_file"
-      return 0
-    fi
-  done
-  
-  # If we couldn't find a log file, try using journalctl for systemd-based systems.
-  if command -v journalctl &> /dev/null; then
-    echo "journalctl"
-    return 0
-  fi
-  
-  echo ""
-  return 1
-}
-
 # Send Mail using swaks
 send_swaks_mail() {
   local user="$1"
@@ -88,28 +59,12 @@ send_swaks_mail() {
 
 # Monitor login events
 monitor_login_events() {
-  local log_source=$(find_auth_log)
-  
-  if [ -z "$log_source" ]; then
-    echo "[$(date '+%Y-%m-%d %H:%M:%S')] Error: Unable to find available authentication log file"
-    echo "========================================================================================================"
-    exit 1
-  fi
-  
-  echo "[$(date '+%Y-%m-%d %H:%M:%S')] Start monitoring login events, using log source: $log_source"
+  echo "========================================================================================================"
+  echo "[$(date '+%Y-%m-%d %H:%M:%S')] Start monitoring login events, using log source: journalctl"
   echo "========================================================================================================"
   
-  if [ "$log_source" = "journalctl" ]; then
-    # Use journalctl for systemd-based systems
-    journalctl -n 0 -f -u "sshd.service" -o cat | while read line; do
-      process_log_line "$line"
-    done
-  else
-    # Use traditional log files
-    tail -n 0 -f "$log_source" | while read line; do
-      process_log_line "$line"
-    done
-  fi
+  journalctl -n 0 -f -u "ssh" -o cat | while read line; do
+    process_log_line "$line"
 }
 
 # Process each log line
