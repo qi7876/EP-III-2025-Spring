@@ -11,10 +11,12 @@ if(USE_LINKED AND USE_SEQUENTIAL)
   message(FATAL_ERROR "Only one of USE_LINKED and USE_SEQUENTIAL can be enabled.")
 endif()
 
+set(SOURCES src/main.cc src/input.cc)
+
 if(USE_SEQUENTIAL)
-  set(SOURCES src/main.cc src/linear_list_sequential.cc)
+  list(APPEND SOURCES src/linear_list_sequential.cc)
 else()
-  set(SOURCES src/main.cc src/linear_list_linked.cc)
+  list(APPEND SOURCES src/linear_list_linked.cc)
 endif()
 
 add_executable(${PROJECT_NAME} ${SOURCES})

@@ -3,12 +3,12 @@
 ## 要求
 
 - [x] 基于linear_list.h 定义的线性表实现，并可在构造时指定顺序存储或链接存储等不同的构造方式；
-- [ ] 支持多种形式的输入，如标准输入、txt文本文件（一行一个数）、csv 文件（数之间采用逗号分隔），或支持注释的自定义格式文件，等等；
+- [x] 支持多种形式的输入，如标准输入、txt文本文件（一行一个数）、csv 文件（数之间采用逗号分隔），或支持注释的自定义格式文件，等等；
 - [ ] 支持多种形式的输出，如标准输出、输出到文件、发送到邮件，等等；
 - [ ] 支持多种不同的排序算法；
 - [ ] 采用cmake编译机制，提供make test测试功能。
 
-## 使用方法
+## 构建步骤
 
 以下步骤在项目根目录进行
 
@@ -42,4 +42,68 @@
 
 2. 测试
 
-   二进制文件生成在 `build` 目录下，可以直接运行来测试 `main.cc` 中给出的简单案例。
+   二进制文件生成在 `build` 目录下，可以直接运行来进行测试。
+
+## 使用方法
+
+以下使用样例在项目`build`目录下运行。
+
+```bash
+# 进入标准输入交互模式
+./sort_linear_list
+./sort_linear_list --stdin
+# I/O
+Reading from standard input
+[DEBUG] Using Linked List
+1
+2
+3
+4
+5
+2
+3
+1
+4
+EOF
+Before Sorting:
+List: 1 2 3 4 5 2 3 1 4 
+After Sorting:
+List: 1 1 2 2 3 3 4 4 5
+
+# 参数转标准输入
+./sort_linear_list --stdin "1 2 3 4 3 2 4 1"
+# I/O
+[DEBUG] Using Linked List
+Before Sorting:
+List: 1 2 3 4 3 2 4 1 
+After Sorting:
+List: 1 1 2 2 3 3 4 4
+
+# pipeline兼容测试
+echo "1 2 3 4 2 3 5 1 2" | ./sort_linear_list --stdin
+# I/O
+[DEBUG] Using Linked List
+Before Sorting:
+List: 1 2 3 4 2 3 5 1 2 
+After Sorting:
+List: 1 1 2 2 2 3 3 4 5
+
+# file输入
+./sort_linear_list --file ../test/list.txt
+# I/O
+[DEBUG] Using Linked List
+Before Sorting:
+List: 1 2 3 5 1 2 3 5 2 7 4 8 5 3 
+After Sorting:
+List: 1 1 2 2 2 3 3 3 4 5 5 5 7 8
+
+# csv输入
+./sort_linear_list --csv ../test/list.csv
+# I/O
+[DEBUG] Using Linked List
+Before Sorting:
+List: 1 4 5 6 4 7 1 3 4 7 4 1 
+After Sorting:
+List: 1 1 1 3 4 4 4 4 5 6 7 7
+```
+
