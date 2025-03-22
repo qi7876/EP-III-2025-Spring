@@ -14,8 +14,6 @@ struct list_t {
 };
 
 LIST create_list() {
-    // TODO:
-    std::cout << "[DEBUG] Using Linked List" << std::endl;
     LIST newList = (LIST)malloc(sizeof(struct list_t));
     if (newList == nullptr) {
         return nullptr;

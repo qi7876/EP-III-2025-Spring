@@ -11,8 +11,6 @@ struct list_t {
 
 // 创建一个空的线性表
 LIST create_list() {
-    // TODO:
-    std::cout << "[DEBUG] Using Sequential List" << std::endl;
     LIST list = (LIST)malloc(sizeof(struct list_t));
     if (!list)
         return NULL;

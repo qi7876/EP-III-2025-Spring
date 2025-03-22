@@ -2,9 +2,7 @@
 #include <fstream>
 #include <sstream>
 #include <iostream>
-#include <cstdlib>
 
-// 从 txt 文件中读取，每行一个数
 LIST read_from_txt(const char* file_path) {
     LIST list = create_list();
     std::ifstream fin(file_path);
@@ -14,7 +12,7 @@ LIST read_from_txt(const char* file_path) {
     }
     int num;
     int pos = 0;
-    while (fin >> num) { // 一行一个数
+    while (fin >> num) {
          list_insert(list, pos, num);
          pos++;
     }
@@ -22,7 +20,6 @@ LIST read_from_txt(const char* file_path) {
     return list;
 }
 
-// 从 csv 文件中读取，一行中使用逗号分隔
 LIST read_from_csv(const char* file_path) {
     LIST list = create_list();
     std::ifstream fin(file_path);
@@ -45,7 +42,6 @@ LIST read_from_csv(const char* file_path) {
     return list;
 }
 
-// 从标准输入读取，支持管道输入或用户交互
 LIST read_from_stdin() {
     LIST list = create_list();
     int num;

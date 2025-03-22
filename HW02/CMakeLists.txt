@@ -11,7 +11,7 @@ if(USE_LINKED AND USE_SEQUENTIAL)
   message(FATAL_ERROR "Only one of USE_LINKED and USE_SEQUENTIAL can be enabled.")
 endif()
 
-set(SOURCES src/main.cc src/input.cc)
+set(SOURCES src/main.cc src/input.cc src/sort.cc src/output.cc)
 
 if(USE_SEQUENTIAL)
   list(APPEND SOURCES src/linear_list_sequential.cc)
