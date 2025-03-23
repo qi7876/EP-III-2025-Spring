@@ -1,0 +1,8 @@
+to = ""
+from = ""
+server = ""
+port = ""
+auth = ""
+auth_user = ""
+auth_password = ""
+body = "Please find attached the sorted list."

@@ -1,12 +1,12 @@
 #!/bin/bash
 
 # Swaks mail settings.
-SWAKS_MAIL_TO="qi7876@outlook.com"  # Receiver.
-SWAKS_MAIL_FROM="2023010905015@std.uestc.edu.cn"  # Send from.
+SWAKS_MAIL_TO=""  # Receiver.
+SWAKS_MAIL_FROM=""  # Send from.
 SWAKS_MAIL_SERVER="mail.std.uestc.edu.cn"  # SMTP server.
 SWAKS_MAIL_PORT="25"  # SMTP port.
-SWAKS_MAIL_USER="2023010905015@std.uestc.edu.cn"  # User.
-SWAKS_MAIL_PASSWORD="tYjxiq-qimrat-8biqsu"  # Password.
+SWAKS_MAIL_USER=""  # User.
+SWAKS_MAIL_PASSWORD=""  # Password.
 
 # Cache variable to store the last detected log entry
 LAST_LOG_ENTRY=""
