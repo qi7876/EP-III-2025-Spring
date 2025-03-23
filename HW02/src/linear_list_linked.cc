@@ -1,5 +1,5 @@
 #include "../include/linear_list.hh"
-#include <iostream>
+#include <cstdlib>
 
 // 定义链表节点结构体
 typedef struct node_t {
@@ -95,4 +95,18 @@ int list_delete(LIST list, int pos) {
     } else {
         return E_NODE_NOT_FOUND;
     }
+}
+
+void list_destroy(LIST list) {
+    if (list == nullptr) {
+        return;  // 列表为空，直接返回
+    }
+
+    // 循环删除链表中的节点
+    while (list->head != nullptr) {
+        list_delete(list, 0);  // 每次都删除头节点
+    }
+
+    // 释放链表结构本身
+    free(list);
 }

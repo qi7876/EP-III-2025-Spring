@@ -39,4 +39,6 @@ int list_insert(LIST list, int pos, int x);
 /* 删除线性表中指定位置上的节点，位置不存在则返回 E_NODE_NOT_FOUND */
 int list_delete(LIST list, int pos);
 
+void list_destroy(LIST list);
+
 #endif // __LINEAR_LIST_H_INCLUDED__

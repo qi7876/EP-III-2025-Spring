@@ -1,5 +1,5 @@
 #include "../include/linear_list.hh"
-#include <iostream>
+#include <cstdlib>
 #define INITIAL_CAPACITY 100
 
 // 内部结构体，顺序表实现
@@ -77,4 +77,18 @@ int list_delete(LIST list, int pos) {
     }
     list->length--;
     return E_SUCCESS;
+}
+
+void list_destroy(LIST list) {
+    if (list == nullptr) {
+        return;  // 列表为空，直接返回
+    }
+
+    // 释放动态数组
+    if (list->data != nullptr) {
+        free(list->data);
+    }
+
+    // 释放列表结构本身
+    free(list);
 }
