@@ -1,0 +1,30 @@
+services:
+  roscore:
+    image: ros_with_tutorials
+    command: roscore
+    networks:
+      - ros_network
+
+  talker:
+    image: ros_with_tutorials
+    command: rosrun roscpp_tutorials talker
+    environment:
+      - ROS_MASTER_URI=http://roscore:11311
+    depends_on:
+      - roscore
+    networks:
+      - ros_network
+
+  listener:
+    image: ros_with_tutorials
+    command: rosrun roscpp_tutorials listener
+    environment:
+      - ROS_MASTER_URI=http://roscore:11311
+    depends_on:
+      - roscore
+    networks:
+      - ros_network
+
+networks:
+  ros_network:
+    driver: bridge
