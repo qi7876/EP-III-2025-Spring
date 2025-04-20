@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>P2P Video Chat - Room {{ room_number }}</title>
+    <link rel="stylesheet" href="/static/style.css">
+    <style>
+        /* Style the new form elements in the header */
+        .header-form {
+            display: inline-flex; /* Align items inline */
+            align-items: center;
+            gap: 10px; /* Space between elements */
+            margin-left: 20px;
+            padding-left: 20px;
+            border-left: 1px solid #e0e0e0; /* Separator */
+        }
+
+        .header-form input[type="text"] {
+            padding: 5px 8px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 0.9em;
+        }
+
+        .header-form button {
+            padding: 5px 10px;
+            font-size: 0.9em;
+            cursor: pointer;
+            background-color: #007aff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            transition: background-color 0.2s ease;
+        }
+
+        .header-form button:hover {
+            background-color: #005bb5;
+        }
+
+        /* Add a small label style */
+        .header-form label {
+            font-size: 0.8em;
+            color: #555;
+            margin-right: -5px; /* Adjust spacing */
+        }
+    </style>
+</head>
+<body>
+<header>
+    <h1>P2P Video Chat</h1>
+    <div class="info">
+        <span>Room: <strong id="current-room">{{ room_number }}</strong></span>
+        <span>My Name: <strong id="current-name">{{ my_name }}</strong></span>
+
+        <div class="header-form">
+            <label for="new_room_id">New Room:</label>
+            <input type="text" id="new_room_id" name="new_room_id" placeholder="Enter Room ID" size="10">
+            <label for="new_username">New Name:</label>
+            <input type="text" id="new_username" name="new_username" placeholder="Enter Name" size="10">
+            <button id="update-settings-btn">Update & Switch</button>
+        </div>
+
+        <button onclick="window.location.href='/leave'"
+                style="margin-left: 15px; padding: 5px 10px; cursor: pointer; background-color: #aaa;">Leave App
+        </button>
+    </div>
+</header>
+
+<main id="video-grid">
+    <div class="video-container self-video">
+        <h2 id="self-video-title">Me ({{ my_name }})</h2>
+        <img id="self-video-feed" src="{{ url_for('video_feed_self') }}" alt="My Video Feed">
+    </div>
+</main>
+
+<footer>
+    <p>Status: <span id="status">Connecting...</span></p>
+</footer>
+
+<script src="/static/script.js"></script>
+</body>
+</html>
