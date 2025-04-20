@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>P2P Video Chat - Setup</title>
+    <link rel="stylesheet" href="/static/style.css">
+    <style>
+        /* Add some specific styles for the setup form */
+        body.setup {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-color: #f4f4f8;
+        }
+        .setup-container {
+            background-color: #ffffff;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            text-align: center;
+            width: 100%;
+            max-width: 400px;
+        }
+        .setup-container h1 {
+            margin-top: 0;
+            margin-bottom: 25px;
+            font-weight: 500;
+            color: #333;
+        }
+        .form-group {
+            margin-bottom: 20px;
+            text-align: left;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            font-size: 0.9em;
+            color: #555;
+        }
+        .form-group input[type="text"] {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            box-sizing: border-box; /* Include padding in width */
+            font-size: 1em;
+        }
+        .form-group input[type="text"]:focus {
+            border-color: #007aff;
+            outline: none;
+            box-shadow: 0 0 0 2px rgba(0, 122, 255, 0.2);
+        }
+        .submit-btn {
+            background-color: #007aff;
+            color: white;
+            padding: 12px 25px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1em;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+            width: 100%;
+            margin-top: 10px;
+        }
+        .submit-btn:hover {
+            background-color: #005bb5;
+        }
+    </style>
+</head>
+<body class="setup">
+    <div class="setup-container">
+        <h1>Join Video Chat Room</h1>
+        <form action="{{ url_for('join_chat') }}" method="post">
+            <div class="form-group">
+                <label for="room_id">Room ID:</label>
+                <input type="text" id="room_id" name="room_id" required>
+            </div>
+            <div class="form-group">
+                <label for="username">Your Name:</label>
+                <input type="text" id="username" name="username" required>
+            </div>
+            <button type="submit" class="submit-btn">Join Room</button>
+        </form>
+    </div>
+</body>
+</html>
