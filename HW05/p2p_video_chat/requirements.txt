@@ -1,0 +1,3 @@
+flask
+zmq
+opencv-python-headless
